@@ -56,7 +56,7 @@ export default function HomePage() {
           <Card
             key={item.id}
             imgUrl={item.imgUrl}
-            title={item.name}
+            name={item.name}
             price={item.price}
             id={item.id}
             onClickDelete={handleDeleteProduct}

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Card({
   imgUrl,
-  title,
+  name,
   price,
   id,
   onClickDelete,
@@ -12,7 +12,7 @@ export default function Card({
     <div className="flex flex-col justify-center items-center gap-4">
       <div className="border-2 border-black p-2 space-y-2">
         <img src={imgUrl} alt="ipong" className="w-52" />
-        <h1>{title}</h1>
+        <h1>{name}</h1>
         <h1 className="text-red-500">
           Rp {Number(price).toLocaleString("id-ID")}
         </h1>
