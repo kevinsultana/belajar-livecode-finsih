@@ -38,7 +38,7 @@ export const { setProducts, setProduct, setLoading, setError } =
 export const fetchProducts = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const querySnap = await getDocs(collection(db, "productss"));
+    const querySnap = await getDocs(collection(db, "products"));
     const result = querySnap.docs.map((doc) => {
       return { ...doc.data(), id: doc.id };
     });
