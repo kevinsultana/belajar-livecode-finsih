@@ -11,7 +11,7 @@ export default function Card({
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <div className="border-2 border-black p-2 space-y-2">
-        <img src={imgUrl} alt="ipong" className="w-52" />
+        <img src={imgUrl} alt={name} className="w-52" />
         <h1>{name}</h1>
         <h1 className="text-red-500">
           Rp {Number(price).toLocaleString("id-ID")}
