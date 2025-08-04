@@ -14,7 +14,6 @@ const initialState = {
   items: [],
   item: {},
   loading: false,
-  error: null,
 };
 
 const productSlice = createSlice({
@@ -30,9 +29,6 @@ const productSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
   },
 });
 
@@ -41,15 +37,14 @@ export const { setProducts, setProduct, setLoading, setError } =
 
 export const fetchProducts = () => async (dispatch) => {
   dispatch(setLoading(true));
-  dispatch(setError(null));
   try {
-    const querySnap = await getDocs(collection(db, "products"));
+    const querySnap = await getDocs(collection(db, "productss"));
     const result = querySnap.docs.map((doc) => {
       return { ...doc.data(), id: doc.id };
     });
     dispatch(setProducts(result));
   } catch (error) {
-    dispatch(setError(error.message));
+    console.log(error);
   } finally {
     dispatch(setLoading(false));
   }
@@ -57,13 +52,12 @@ export const fetchProducts = () => async (dispatch) => {
 
 export const fetchProductById = (idProduct) => async (dispatch) => {
   dispatch(setLoading(true));
-  dispatch(setError(null));
   try {
     const queryDoc = doc(db, "products", idProduct);
     const docSnap = await getDoc(queryDoc);
     dispatch(setProduct(docSnap.data()));
   } catch (error) {
-    dispatch(setError(error.message));
+    console.log(error);
   } finally {
     dispatch(setLoading(false));
   }
@@ -71,7 +65,6 @@ export const fetchProductById = (idProduct) => async (dispatch) => {
 
 export const addProduct = (product) => async (dispatch) => {
   dispatch(setLoading(true));
-  dispatch(setError(null));
   try {
     await addDoc(collection(db, "products"), {
       name: product.name,
@@ -80,7 +73,7 @@ export const addProduct = (product) => async (dispatch) => {
     });
     dispatch(fetchProducts());
   } catch (error) {
-    dispatch(setError(error.message));
+    console.log(error);
   } finally {
     dispatch(setLoading(false));
   }
@@ -88,12 +81,11 @@ export const addProduct = (product) => async (dispatch) => {
 
 export const deleteProduct = (idProduct) => async (dispatch) => {
   dispatch(setLoading(true));
-  dispatch(setError(null));
   try {
     await deleteDoc(doc(db, "products", idProduct));
     dispatch(fetchProducts());
   } catch (error) {
-    dispatch(setError(error.message));
+    console.log(error);
   } finally {
     dispatch(setLoading(false));
   }
@@ -101,7 +93,6 @@ export const deleteProduct = (idProduct) => async (dispatch) => {
 
 export const editProduct = (idProduct, product) => async (dispatch) => {
   dispatch(setLoading(true));
-  dispatch(setError(null));
   try {
     await updateDoc(doc(db, "products", idProduct), {
       name: product.name,
@@ -110,7 +101,7 @@ export const editProduct = (idProduct, product) => async (dispatch) => {
     });
     dispatch(fetchProducts());
   } catch (error) {
-    dispatch(setError(error.message));
+    console.log(error);
   } finally {
     dispatch(setLoading(false));
   }
